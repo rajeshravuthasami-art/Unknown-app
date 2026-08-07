@@ -65,13 +65,13 @@ export default function DataAnalyzerPage() {
           <UploadCloud size={32} className="text-primary" />
         </div>
         <h3 className="text-xl font-medium mb-2">Upload your dataset</h3>
-        <p className="text-white/50 text-sm mb-6">Supports CSV, JSON, Excel, Parquet (Max 50MB)</p>
+        <p className="text-white/50 text-sm mb-6">Supports CSV (Max 50MB)</p>
 
         <input
           type="file"
           id="file-upload"
           className="hidden"
-          accept=".csv,.json,.xlsx,.xls,.parquet"
+          accept=".csv"
           onChange={handleUpload}
         />
         <label htmlFor="file-upload">
@@ -105,15 +105,15 @@ export default function DataAnalyzerPage() {
               </div>
               <div className="bg-white/5 p-4 rounded-lg">
                 <div className="text-sm text-white/50 mb-1">Total Columns</div>
-                <div className="text-2xl font-bold">{report.columns || 0}</div>
+                <div className="text-2xl font-bold">{String(report.columns || 0)}</div>
               </div>
               <div className="bg-error/10 p-4 rounded-lg border border-error/20">
                 <div className="text-sm text-error/70 mb-1">Missing Values</div>
-                <div className="text-2xl font-bold text-error">{report.missing_values || 0}</div>
+                <div className="text-2xl font-bold text-error">{String(report.missing_values || 0)}</div>
               </div>
               <div className="bg-warning/10 p-4 rounded-lg border border-yellow-500/20">
                 <div className="text-sm text-yellow-500/70 mb-1">Columns Tracked</div>
-                <div className="text-2xl font-bold text-yellow-500">{report.columns_list?.length || 0}</div>
+                <div className="text-2xl font-bold text-yellow-500">{String((report.columns_list as string[])?.length || 0)}</div>
               </div>
             </div>
           </Card>
@@ -121,12 +121,12 @@ export default function DataAnalyzerPage() {
           <Card className="col-span-3 border-secondary/30">
             <h3 className="font-heading font-semibold text-lg mb-4 text-secondary">AI Insights & Suggestions</h3>
             <ul className="space-y-3">
-              {report.insights.map((insight: string, i: number) => (
+              {Array.isArray(report.insights) ? report.insights.map((insight: string, i: number) => (
                 <li key={i} className="flex items-start space-x-3 bg-white/5 p-3 rounded-lg">
                   <div className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 shrink-0" />
                   <span className="text-sm text-white/80">{insight}</span>
                 </li>
-              ))}
+              )) : null}
             </ul>
           </Card>
         </div>

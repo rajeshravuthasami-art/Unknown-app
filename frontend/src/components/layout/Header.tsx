@@ -16,7 +16,7 @@ export function Header() {
           <Bell size={20} className="text-white/70" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"></span>
         </button>
-        <UserButton afterSignOutUrl="/"/>
+        <UserButton />
       </div>
     </header>
   );
